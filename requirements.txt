@@ -1,3 +1,7 @@
-streamlit
+fastapi
+uvicorn
+python-multipart
 google-generativeai
+pydantic
 python-dotenv
+streamlit
