@@ -1,0 +1,6 @@
+##fileformat=VCFv4.2
+##source=PharmaGuard_Dummy_Generator
+##reference=hg38
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	SAMPLE
+chr10	94938421	.	G	A	.	.	GENE=CYP2C19;TYPE=snp	GT	0/1
+chr22	42126611	.	C	T	.	.	GENE=CYP2D6;TYPE=snp	GT	0/1
