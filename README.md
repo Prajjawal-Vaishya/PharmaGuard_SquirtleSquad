@@ -10,6 +10,15 @@ Pharmacogenomics AI Tool for Hackathon.
 
 ## Local Setup
 
+### Quick Start (Windows)
+For a one-click setup, simply run the provided batch script:
+1. Double-click `setup_project.bat`.
+2. Wait for the success message.
+3. Your isolated environment is ready!
+
+### Manual Setup
+If you prefer manual installation:
+
 1. **Clone the repository**
    ```bash
    git clone <repo_url>
