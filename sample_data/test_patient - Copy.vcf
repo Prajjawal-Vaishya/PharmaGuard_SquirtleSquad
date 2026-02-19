@@ -1,6 +1,39 @@
 ##fileformat=VCFv4.2
-##source=PharmaGuard_Dummy_Generator
-##reference=hg38
-#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	SAMPLE
-chr10	94938421	.	G	A	.	.	GENE=CYP2C19;TYPE=snp	GT	0/1
-chr22	42126611	.	C	T	.	.	GENE=CYP2D6;TYPE=snp	GT	0/1
+##fileDate=20260213
+##source=ClinicalGenomicsLab_PGx_Pipeline_v3.2.1
+##reference=GRCh38.p13
+##phasing=none
+##INFO=<ID=RS,Number=1,Type=String,Description="dbSNP rsID">
+##INFO=<ID=GENE,Number=1,Type=String,Description="Gene symbol">
+##INFO=<ID=STAR,Number=1,Type=String,Description="Star allele designation">
+##INFO=<ID=FUNC,Number=1,Type=String,Description="Functional consequence">
+##INFO=<ID=CPIC,Number=1,Type=String,Description="CPIC guideline level">
+##INFO=<ID=AF,Number=A,Type=Float,Description="Allele frequency in gnomAD">
+##INFO=<ID=CLNSIG,Number=.,Type=String,Description="ClinVar clinical significance">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=DP,Number=1,Type=Integer,Description="Read depth at this position">
+##FORMAT=<ID=GQ,Number=1,Type=Integer,Description="Genotype quality">
+##FORMAT=<ID=AD,Number=R,Type=Integer,Description="Allelic depths">
+##FORMAT=<ID=PL,Number=G,Type=Integer,Description="Phred-scaled genotype likelihoods">
+##contig=<ID=chr1,length=248956422,assembly=GRCh38.p13>
+##contig=<ID=chr6,length=170805979,assembly=GRCh38.p13>
+##contig=<ID=chr10,length=133797422,assembly=GRCh38.p13>
+##contig=<ID=chr12,length=133275309,assembly=GRCh38.p13>
+##contig=<ID=chr22,length=50818468,assembly=GRCh38.p13>
+##FILTER=<ID=PASS,Description="All filters passed">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	HIGHRISK_PATIENT
+chr1	97450058	rs3918290	C	T	99	PASS	RS=rs3918290;GENE=DPYD;STAR=*2A;FUNC=splice_acceptor;CPIC=1A;AF=0.0089;CLNSIG=Pathogenic	GT:DP:GQ:AD:PL	0/1:68:99:34,34:960,0,960
+chr1	97515865	rs1801265	T	C	99	PASS	RS=rs1801265;GENE=DPYD;STAR=*5;FUNC=missense;CPIC=1A;AF=0.0019;CLNSIG=Pathogenic	GT:DP:GQ:AD:PL	0/0:72:99:72,0:0,216,2700
+chr6	18133885	rs1800460	G	A	99	PASS	RS=rs1800460;GENE=TPMT;STAR=*3A;FUNC=missense;CPIC=1A;AF=0.0348;CLNSIG=Pathogenic	GT:DP:GQ:AD:PL	0/1:47:99:24,23:700,0,700
+chr6	18138997	rs1800462	C	G	99	PASS	RS=rs1800462;GENE=TPMT;STAR=*2;FUNC=missense;CPIC=1A;AF=0.0045;CLNSIG=Pathogenic	GT:DP:GQ:AD:PL	0/0:44:99:44,0:0,132,1650
+chr10	94781859	rs4244285	G	A	99	PASS	RS=rs4244285;GENE=CYP2C19;STAR=*2;FUNC=splice_defect;CPIC=1A;AF=0.1304;CLNSIG=Pathogenic	GT:DP:GQ:AD:PL	1/1:62:99:0,62:2325,186,0
+chr10	94842866	rs12769205	A	G	99	PASS	RS=rs12769205;GENE=CYP2C19;STAR=*17;FUNC=promoter;CPIC=1A;AF=0.2145;CLNSIG=Affects_function	GT:DP:GQ:AD:PL	0/0:56:99:56,0:0,168,2100
+chr10	94942290	rs4986893	G	A	99	PASS	RS=rs4986893;GENE=CYP2C19;STAR=*3;FUNC=stop_gained;CPIC=1A;AF=0.0078;CLNSIG=Pathogenic	GT:DP:GQ:AD:PL	0/0:61:99:61,0:0,183,2287
+chr10	96702047	rs1057910	A	C	99	PASS	RS=rs1057910;GENE=CYP2C9;STAR=*3;FUNC=missense;CPIC=1A;AF=0.0659;CLNSIG=Pathogenic	GT:DP:GQ:AD:PL	0/1:58:99:29,29:870,0,870
+chr10	96709039	rs1799853	C	T	99	PASS	RS=rs1799853;GENE=CYP2C9;STAR=*2;FUNC=missense;CPIC=1A;AF=0.1246;CLNSIG=Pathogenic	GT:DP:GQ:AD:PL	0/0:63:99:63,0:0,189,2362
+chr12	21176804	rs4149056	T	C	99	PASS	RS=rs4149056;GENE=SLCO1B1;STAR=*5;FUNC=missense;CPIC=1A;AF=0.1532;CLNSIG=Risk_factor	GT:DP:GQ:AD:PL	0/1:66:99:33,33:990,0,990
+chr12	21176879	rs2306283	A	G	99	PASS	RS=rs2306283;GENE=SLCO1B1;STAR=*1B;FUNC=intronic;CPIC=3;AF=0.3987;CLNSIG=Benign	GT:DP:GQ:AD:PL	0/0:71:99:71,0:0,213,2662
+chr22	42128945	rs16947	C	T	99	PASS	RS=rs16947;GENE=CYP2D6;STAR=*2;FUNC=synonymous;CPIC=3;AF=0.2943;CLNSIG=Benign	GT:DP:GQ:AD:PL	0/1:64:99:32,32:960,0,960
+chr22	42129132	rs1135840	G	C	99	PASS	RS=rs1135840;GENE=CYP2D6;STAR=*4;FUNC=missense;CPIC=1A;AF=0.1876;CLNSIG=Pathogenic	GT:DP:GQ:AD:PL	0/1:69:99:35,34:950,0,950
+chr22	42522613	rs3892097	C	T	99	PASS	RS=rs3892097;GENE=CYP2D6;STAR=*4;FUNC=splice_defect;CPIC=1A;AF=0.1902;CLNSIG=Pathogenic	GT:DP:GQ:AD:PL	0/0:75:99:75,0:0,225,2812
+chr22	42524175	rs28371706	C	T	99	PASS	RS=rs28371706;GENE=CYP2D6;STAR=*10;FUNC=missense;CPIC=1A;AF=0.4532;CLNSIG=Affects_function	GT:DP:GQ:AD:PL	0/0:81:99:81,0:0,243,3037

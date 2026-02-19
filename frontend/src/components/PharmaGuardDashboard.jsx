@@ -237,12 +237,30 @@ function ReportModal({ data, onClose }) {
         return () => window.removeEventListener('keydown', h);
     }, [onClose]);
 
-    const jsonReport = JSON.stringify({
-        schema_version: '1.0', generated_at: new Date().toISOString(),
-        patient_id: 'ANON-2026-PG', drug: data.drug, gene: data.gene,
-        diplotype: data.diplotype, phenotype: data.phenotype, risk_level: data.risk,
-        cpic_guideline: 'CPIC v4.0', mechanism: data.summary,
-        suggestion: data.suggestion, ai_confidence: data.ai_confidence,
+    const jsonReport = JSON.stringify(data.rawData || {
+        patient_id: 'PATIENT_XXX',
+        drug: data.drug,
+        timestamp: new Date().toISOString(),
+        risk_assessment: {
+            risk_label: data.risk === 'HIGH' ? 'Toxic' : data.risk === 'MODERATE' ? 'Adjust Dosage' : 'Safe',
+            confidence_score: data.ai_confidence || 0.0,
+            severity: data.risk.toLowerCase()
+        },
+        pharmacogenomic_profile: {
+            primary_gene: data.gene,
+            diplotype: data.diplotype,
+            phenotype: data.phenotype,
+            detected_variants: []
+        },
+        clinical_recommendation: {
+            recommendation: data.suggestion
+        },
+        llm_generated_explanation: {
+            summary: data.summary
+        },
+        quality_metrics: {
+            vcf_parsing_success: true
+        }
     }, null, 2);
 
     const handleDownload = useCallback(() => {
@@ -378,12 +396,79 @@ export default function PharmaGuardDashboard() {
     const handleDrag = (e) => e.preventDefault();
     const handleDrop = useCallback((e) => { e.preventDefault(); setDragging(false); const f = e.dataTransfer.files?.[0]; if (f) setFile(f); }, []);
 
-    const handleRun = () => {
+    // ── API HELPERS ──────────────────────────────────────────
+    const mapRiskLevel = (label) => {
+        const l = (label || '').toUpperCase();
+        if (l === 'TOXIC') return 'HIGH';
+        if (l === 'ADJUST DOSAGE') return 'MODERATE';
+        if (l === 'SAFE') return 'LOW';
+        return 'LOW';
+    };
+
+    const mapBadge = (riskLabel, phenotype) => {
+        const l = (riskLabel || '').toUpperCase();
+        if (l === 'TOXIC') {
+            if (phenotype === 'URM') return 'Toxicity Risk';
+            if (phenotype === 'PM') return 'Contraindicated';
+            return 'Contraindicated';
+        }
+        if (l === 'ADJUST DOSAGE') return 'Dose Adjust';
+        if (l === 'SAFE') return 'Normal';
+        return 'Monitor';
+    };
+
+    const handleRun = async () => {
         if (!file) { setWarningMsg('Please upload a VCF genome file before running analysis.'); setWarningOpen(true); return; }
         if (selectedDrugs.length === 0) { setWarningMsg('Please select at least one medication to screen.'); setWarningOpen(true); return; }
         if (status === 'scanning') return;
+
         setStatus('scanning');
-        setTimeout(() => setStatus('done'), 3200);
+
+        let newInteractions = {};
+
+        // Process ONE drug at a time to protect the LLM rate limits
+        for (const drugName of selectedDrugs) {
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("drug", drugName);
+
+            try {
+                const response = await fetch("http://localhost:8000/api/v1/pgx/analyze", {
+                    method: "POST",
+                    body: formData
+                    // Browser sets the multipart boundary automatically; do NOT set Content-Type header
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    const gene = data.pharmacogenomic_profile.primary_gene;
+                    const risk = mapRiskLevel(data.risk_assessment.risk_label);
+                    const phenotype = data.pharmacogenomic_profile.phenotype;
+
+                    // Key is Drug-Gene to match getCellData lookup
+                    newInteractions[`${drugName}-${gene}`] = {
+                        drug: drugName,
+                        gene: gene,
+                        diplotype: data.pharmacogenomic_profile.diplotype,
+                        phenotype: phenotype,
+                        risk: risk,
+                        badge: mapBadge(data.risk_assessment.risk_label, phenotype),
+                        summary: data.llm_generated_explanation.summary,
+                        suggestion: data.clinical_recommendation.recommendation,
+                        ai_confidence: data.risk_assessment.confidence_score,
+                        rawData: data // Store full verified response
+                    };
+                } else {
+                    console.error(`API error for ${drugName}:`, await response.text());
+                }
+            } catch (error) {
+                console.error(`Failed to analyze ${drugName}:`, error);
+            }
+        }
+
+        // Update state with real results
+        setPharmaData(prev => ({ ...prev, interactions: { ...prev.interactions, ...newInteractions } }));
+        setStatus('done');
     };
 
     const displayDrugs = selectedDrugs.length > 0 ? selectedDrugs : [];
