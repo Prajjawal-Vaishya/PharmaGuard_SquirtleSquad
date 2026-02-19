@@ -25,7 +25,7 @@
 | **1. Genetic Data Input** | **2. AI-Powered Dosing Analysis** |
 | :---: | :---: |
 | _Upload patient data and specify the target medication._ | _Gemini-generated summaries of genetic risks aligned with CPIC guidelines._ |
-| ![Input Screen Placeholder](https://placehold.co/600x400/2a2a2a/FFF?text=Input+UI:+Upload+Data+&+Drug+Name) | ![Results Screen Placeholder](https://placehold.co/600x400/2a2a2a/FFF?text=Results+UI:+Gemini+Summary+&+Dosing+Recs) |
+| ![Input Screen Placeholder](./assets/demo (4).png) | ![Results Screen Placeholder](./assets/demo (1).png) |
 
 ---
 
