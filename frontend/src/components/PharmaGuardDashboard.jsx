@@ -433,7 +433,7 @@ export default function PharmaGuardDashboard() {
             formData.append("drug", drugName);
 
             try {
-                const response = await fetch("http://localhost:8000/api/v1/pgx/analyze", {
+                const response = await fetch("https://pharmaguard-squirtlesquad-1.onrender.com/api/v1/pgx/analyze", {
                     method: "POST",
                     body: formData
                     // Browser sets the multipart boundary automatically; do NOT set Content-Type header
