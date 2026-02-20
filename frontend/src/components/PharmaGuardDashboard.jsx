@@ -376,7 +376,16 @@ export default function PharmaGuardDashboard() {
             return s ? JSON.parse(s) : DEFAULT_PHARMA_DATA;
         } catch { return DEFAULT_PHARMA_DATA; }
     });
-    useEffect(() => { sessionStorage.setItem(SESSION_KEY, JSON.stringify(pharmaData)); }, [pharmaData]);
+
+    // ── Dynamic Patient ID (Simulated) ──
+    const [patientId, setPatientId] = useState(() => {
+        return sessionStorage.getItem('pg_patient_id') || `PGX-${Math.random().toString(36).substr(2, 4).toUpperCase()}-${Math.random().toString(36).substr(2, 2).toUpperCase()}`;
+    });
+
+    useEffect(() => {
+        sessionStorage.setItem(SESSION_KEY, JSON.stringify(pharmaData));
+        sessionStorage.setItem('pg_patient_id', patientId);
+    }, [pharmaData, patientId]);
 
     /* ── App state ───────────────────────────────────────────── */
     const [status, setStatus] = useState('idle');
@@ -485,7 +494,7 @@ export default function PharmaGuardDashboard() {
                     </div>
                     <div>
                         <h1 className="text-lg font-bold tracking-tight">PharmaGuard<span className="text-[#00F2AD]">.AI</span></h1>
-                        <p className="text-[10px] text-[#475569] font-mono uppercase tracking-widest">Precision Medicine Terminal</p>
+                        <p className="text-[10px] text-[#475569] font-mono uppercase tracking-widest">{patientId} • Precision Medicine</p>
                     </div>
                 </div>
                 <button onClick={handleRun} disabled={status === 'scanning'}
