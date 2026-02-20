@@ -15,7 +15,8 @@
 > **PharmaGuard bridges the gap between complex genetic data and clinical decision-making.** It analyses patient DNA against specific drug profiles to predict adverse reactions and provide explainable, guideline-aligned dosing recommendations using Google Gemini.
 
 ### 🔗 Important Links
-**[Live Demo URL]**(https://pharma-guard-squirtle-squad.vercel.app/) · **[LinkedIn Video Link]**(https://www.linkedin.com/posts/prajjawal-vaishya_rift2026-pharmaguard-pharmacogenomics-activity-7430437310502174720-g_I8?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAE3-GAUBK916gkQGVqO4uUGaJXGr4bWwA0U)
+[![Live Demo](https://img.shields.io/badge/Demo-Live_App-black?style=for-the-badge&logo=vercel&logoColor=white)](https://pharma-guard-squirtle-squad.vercel.app/)
+[![LinkedIn Video](https://img.shields.io/badge/Video-LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/posts/prajjawal-vaishya_rift2026-pharmaguard-pharmacogenomics-activity-7430437310502174720-g_I8?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAE3-GAUBK916gkQGVqO4uUGaJXGr4bWwA0U)
 
 </div>
 
