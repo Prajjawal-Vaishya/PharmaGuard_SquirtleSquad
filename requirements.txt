@@ -2,3 +2,4 @@ fastapi
 python-multipart
 google-generativeai
 pydantic
+uvicorn
